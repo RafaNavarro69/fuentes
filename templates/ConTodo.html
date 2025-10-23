@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Todo personal</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<form method="post" action="/persona" enctype="multipart/form-data">
+    Introduce nombre: 
+    <input type="text" name="nombre">
+
+  <br>Qué idiomas hablas:
+  <select name="lenguaje">
+    <option value="1">Español</option>
+    <option value="2">Inglés</option>
+    <option value="3">Francés</option>
+  </select>
+
+  <br>Seleccione el máximo nivel de estudios que tiene: <br>
+  <input type="radio" name="estudios" value="básicos" checked>Sin estudios<br>
+  <input type="radio" name="estudios" value="primarios">Primario<br>
+  <input type="radio" name="estudios" value="secundarios">Secundario<br>
+  <input type="radio" name="estudios" value="universitarios">Universitario<br>
+
+  <br>
+  <fieldset>
+    <legend>Chequea tus gustos</legend>
+        Cocina<input type="checkbox" name="Coc" checked/>
+      Deportes<input type="checkbox" name="Dep"/>
+    Televisión<input type="checkbox" name="Tv"/>
+        Música<input type="checkbox" name="Mus"/>
+  </fieldset>
+
+  <br>Adjunta fichero con tu currículum:  
+  <input type="file" name="docDeUpload">
+  
+  <br>Y aquí los documentos que quieras:  
+  <input type="file" name="docs" multiple="multiple">
+  
+  <br><br><br>
+  <input type="submit" value="Aceptar datos">
+</form>
+</body>
+</html> 

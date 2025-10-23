@@ -1,0 +1,65 @@
+from suds.client import Client
+import xml.etree.ElementTree as xml
+
+url_consulta='http://10.70.19.36:8080/alba2WS-tasas/ATSE/ATSE_WS?wsdl'
+consulta = Client(url_consulta)
+
+httpHeaders = {'SOAPAction' : 'asda'}  #Esto me ayuda a convertir la llamada en xml, pero me da error esa misma llamada ¿? Realmente el xml me lo devuelve el error!!!!
+#consulta.set_options (headers=httpHeaders)
+print(consulta)  #Para ver servicios y parámetros
+
+respuesta=consulta.service.TitularDeRefCatastral('999', '28905503T')
+print(respuesta)
+print(respuesta.Resultado, ' ', respuesta.Descripcion)
+
+respuesta=consulta.service.DeAltaEnIAE('28905503T')
+print(respuesta)
+print(respuesta.Resultado, ' ', respuesta.Descripcion)
+
+
+url_consulta='http://10.70.19.36:8080/alba2WS-tasas/tasasServices/alba2WS-tasas?wsdl'
+consulta = Client(url_consulta)
+
+respuesta=consulta.service.impresionPago('202501849020')
+#print (respuesta)
+print (respuesta.Resultado,respuesta.Descripcion)
+
+respuesta=consulta.service.TarifasExaccion('RECOBASU')
+print ('----')
+print (respuesta)
+print ('----')
+for elto in respuesta.Tarifas:
+    print (elto.Descripcion, elto.Tarifa)
+
+
+########################################## OTRA FORMA que me devuelve en xml
+
+import requests as req
+
+#Lo sgte lo he obtenido al hacer una llmada sud con header. Me dio error, pero me pintó esto
+req_body="""<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://www.sevilla.org/ATSE_WS" xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header/>
+   <ns1:Body>
+      <ns0:TitularDeRefCatastral>
+         <ns0:refCat>999</ns0:refCat>
+         <ns0:nif>28905503T</ns0:nif>
+      </ns0:TitularDeRefCatastral>
+   </ns1:Body>
+</SOAP-ENV:Envelope>"""
+
+response = req.post  (
+                            url=url_consulta,
+                            headers={"content-type": "text/xml; charset=utf-8"},
+                            data=req_body.encode("utf-8")
+                        )
+
+print (response.text)
+arbol=xml.fromstring(response.text)
+
+
+for child in arbol.iter('*'):
+    print ([e.tag for e in arbol.findall('.//'+child.tag)])
+
+for elto in arbol.iter('{http://www.sevilla.org/ATSE_WS}Descripcion'):
+    print ('Descripción: ', elto.text)

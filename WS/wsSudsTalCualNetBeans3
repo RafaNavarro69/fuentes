@@ -1,0 +1,18 @@
+from suds.client import Client
+import os
+import time
+
+os.environ["NLS_LANG"] = "American_America.UTF8" 
+
+url_consulta='http://localhost:8080/qaa/qaa2?wsdl'
+
+
+consulta = Client(url_consulta)
+print(consulta)
+print(time.strftime("%H:%M:%S"))
+
+respuesta=consulta.service.hello('Rafa',None,None)
+print(respuesta)
+
+respuesta=consulta.service.holaAndalu('Curro')
+print(respuesta)

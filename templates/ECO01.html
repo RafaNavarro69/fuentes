@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>Todo personal</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Chalarangelo/mini.css@v3.0.1/dist/mini-default.min.css">
+</head>
+<body>
+<form method="post" action="/AceptaDatos" enctype="multipart/form-data">
+    
+  <H1>Proyecto ECO</H1>
+  NIG: 
+  <input type="text" name="nig">
+
+  NIF: 
+  <input type="text" name="nif">
+
+  <br>Número de procedimiento: 
+  <input type="text" name="numproc">
+
+  Año de procedimiento: 
+  <input type="text" name="anyoproc">
+
+  <br>Número de juzgado: 
+  <input type="text" name="juzgado">
+
+  <br>Negociado: 
+  <input type="text" name="negociado">
+
+  <fieldset>
+  <legend>Tipo de procedimiento</legend>
+  <input type="radio" name="tipoproc" value="O" checked>Ordinario
+  <input type="radio" name="tipoproc" value="A">Abreviado
+  </fieldset>
+
+
+  <br>
+  <fieldset>
+    <legend>Departamento implicado</legend>
+        Gestión de ingresos<input type="checkbox" name="gin">
+        Sanciones<input type="checkbox" name="san"/>
+        AJM<input type="checkbox" name="ajm"/>
+        TEA<input type="checkbox" name="tea"/>
+        GPR<input type="checkbox" name="gpr"/>
+        Recaudación<input type="checkbox" name="rec"/>
+  </fieldset>
+
+  <br>Fecha de la vista:
+  <input type="date" name="fvista">
+
+  <br><textarea name="observac" cols="50" rows="4">Introduce observaciones</textarea>
+
+    <br>
+<h3>DOCUMENTACIÓN</h3>
+
+    <!--<input type="file" name="doc">-->
+    <br><input type="file" name="docs" multiple="multiple">
+  
+  <br><br><br>
+  <input type="submit" value="Aceptar datos">
+  <button type="submit" formaction="/EnsenaDatos">Enseñar Datos</button>
+</form>
+</body>
+</html> 

@@ -1,0 +1,64 @@
+from suds.client import Client
+import os
+import xml.etree.ElementTree as xml
+from fastapi import FastAPI
+import uvicorn
+import base64
+
+
+app = FastAPI()
+
+#os.environ["NLS_LANG"] = "American_America.UTF8" 
+	
+url_consulta='http://wsbt.ayuntamiento.svq/WSBitacora/WSBitacoraConsulta.asmx?WSDL'
+
+
+def ppal():
+    consulta = Client(url_consulta)
+    print(consulta)
+
+    idEntrada='5413890'
+    idUnidad='50003' 
+    aEntrada='2024'
+    nEntrada='6132'	
+    nombreDocumento='00001713_ATE_ZYES410101_RD_2023J44034_32856877.pdf'
+    parametros="Decimal IdEntrada="+idEntrada+";String Unidad="+idUnidad+";Int32 annoEntrada="+aEntrada+";Int64 numEntrada="+nEntrada+";String nombredocu="+nombreDocumento
+		
+    usuario='ATSE'
+    password='Wx0S49g'
+    accion='ConsultaRies'
+    auditar=False
+    obtenerEsquema=False
+    codigoConsulta='X/N/RIES/PRINCIPAL/ObtenerDocuEntradaATSE'
+    sustituciones=';'
+
+    respuesta=consulta.service.consultaBitEl(   usuario,
+                                                password,
+                                                accion,
+                                                auditar,
+                                                obtenerEsquema,
+                                                codigoConsulta,
+                                                parametros,
+                                                sustituciones
+                                            )
+    print(respuesta)
+    rptaXml=xml.fromstring(respuesta)
+#    print (rptaXml[0][0].text)
+        
+
+    for child in rptaXml.iter('*'):
+        print ([e.tag for e in rptaXml.findall('.//'+child.tag)])  #Así veo que Valor es la etiqueta donde se devuelve el pdf
+
+    i=0
+    for child in rptaXml.iter('Valor'):
+        i=i+1
+        fic = open("c:\\Rafa\\" + str(i) + ".pdf", 'wb')
+        fic.write(base64.b64decode(child.text))
+        fic.close()
+
+    return (1)
+
+ppal()
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="localhost", port=5000)

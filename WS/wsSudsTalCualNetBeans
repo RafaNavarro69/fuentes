@@ -1,0 +1,16 @@
+from suds.client import Client
+import os
+import time
+
+os.environ["NLS_LANG"] = "American_America.UTF8" 
+
+url_consulta='http://10.70.26.48:8050/WS01/NewWebService?wsdl'
+
+
+consulta = Client(url_consulta)
+print(consulta)
+print(time.strftime("%H:%M:%S"))
+
+respuesta=consulta.service.hello('Rafa',None,None)
+print(respuesta)
+print(time.strftime("%H:%M:%S"))

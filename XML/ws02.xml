@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:alb="http://www.sevilla.org/alba2WS-tasas">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <alb:TarifasExaccion>
+         <alb:codExaccion>&exac</alb:codExaccion>
+      </alb:TarifasExaccion>
+   </soapenv:Body>
+</soapenv:Envelope>

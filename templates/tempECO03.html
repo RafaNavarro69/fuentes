@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Visualizar datos en ECORECURSOS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Chalarangelo/mini.css@v3.0.1/dist/mini-default.min.css">
+</head>
+<body>
+    <table name="tabla" scrollbar="none" border="1px">
+        <thead>
+            <tr>
+            <th>NIG</th>
+            <th>NÚMERO DE PROCEDIMIENTO</th>
+            <th>NIF/CIF</th>
+            <th>NOMBRE Y APELLIDOS/RAZÓN SOCIAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recurso in recursos %}
+            <tr>
+                <td>{{recurso.nig}}</td><td>{{recurso.numpr}}</td><td>{{recurso.nif}}</td><td>{{recurso.nom}}</td>
+                <td><img src="{{recurso.src}}" alt="{{recurso.alt}}"></td>
+            </tr>    
+            {% endfor %}
+        </tbody>
+    </table>        
+</body>
+</html>

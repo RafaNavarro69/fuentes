@@ -1,0 +1,93 @@
+from suds.client import Client
+import os
+import time
+
+os.environ["NLS_LANG"] = "American_America.UTF8" 
+	
+
+"""CRITICAL,ERROR,WARNING,INFO,DEBUG,NOTSET"""
+#logging.basicConfig(level=logging.INFO)
+#logging.getLogger('suds.client').setLevel(logging.DEBUG)
+#logging.getLogger('suds.transport').setLevel(logging.DEBUG)
+
+
+#logging.basicConfig(filename="tasas.log", level=logging.INFO, format='%(asctime)s %(message)s')
+
+#logging.info('request')
+
+url_consulta='http://10.70.19.47:8080/alba2WS-tasas/tasasServices/alba2WS-tasas?wsdl'
+
+
+consulta = Client(url_consulta)
+print(consulta)
+print(time.strftime("%H:%M:%S"))
+
+
+dirobjeto=consulta.factory.create('Direccion')
+dirnotificacion=consulta.factory.create('Direccion')
+
+dirobjeto
+#dirobjeto.Via = 'BTX54'
+dirobjeto.TipoVia = 'PLAZA'
+dirobjeto.ViaDes = 'NUEVA'
+dirobjeto.Numero = '0001'
+dirobjeto.Km = None
+dirobjeto.Escalera = None
+dirobjeto.Bloque = None
+dirobjeto.Portal = None
+dirobjeto.Planta = None
+dirobjeto.Puerta = None
+dirobjeto.RestoDir = 'Plt. 3º Pta. D'
+dirobjeto.CodPostal = '41003'
+dirobjeto.Poblacion = '41091'
+dirobjeto.Pais = '108'
+dirobjeto.ProvinciaDes = 'SEVILLA'
+dirobjeto.PoblacionDes = 'SEVILLA'
+dirobjeto.PaisDes = 'ESPAÑA'
+
+#dirnotificacion.Via = 'BTX54'
+dirnotificacion.TipoVia = 'PLAZA'
+dirnotificacion.ViaDes = 'NUEVA'
+dirnotificacion.Numero = '0001'
+dirnotificacion.Km = None
+dirnotificacion.Escalera = None
+dirnotificacion.Bloque = None
+dirnotificacion.Portal = None
+dirnotificacion.Planta = None
+dirnotificacion.Puerta = None
+dirnotificacion.RestoDir = 'Plt. 3º Pta. D'
+dirnotificacion.CodPostal = '41003'
+dirnotificacion.Poblacion = '41091'
+dirnotificacion.Pais = '108'
+dirnotificacion.ProvinciaDes = 'SEVILLA'
+dirnotificacion.PoblacionDes = 'SEVILLA'
+dirnotificacion.PaisDes = 'ESPAÑA'
+
+tarifa=consulta.factory.create('Tarifa')
+tarifa.Codigo = '010101'
+tarifa.Cantidad = 1250
+#tarifa.Rango = None
+#tarifa.Ocurrencias = None
+
+
+
+exaccion='TALLERES'
+expediente = None
+alta='14102022'
+baja = None
+nif='28147396L'
+nombre='JUAN'
+pape1 = None
+ape1='HISPALENSE'
+pape2 = None
+ape2='SEVILLANO'
+obs='Prueba'
+registro='"MACARENA#PAPIROFLEXIA'
+
+#exenciones=consulta.factory.create('EXENCIONES')
+#bonificaciones=consulta.factory.create('BONIFICACIONES')
+
+
+respuesta=consulta.service.altaExpedienteTasas(exaccion,expediente,alta,baja,nif,nombre,pape1,ape1,pape2,ape2,obs,registro,dirobjeto,dirnotificacion,tarifa,None,None)
+print(respuesta)
+print(time.strftime("%H:%M:%S"))

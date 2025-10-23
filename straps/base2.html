@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulopage}}</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename = 'barra') }}{{barra}}.css">
+<link rel="stylesheet" href="{{ url_for('static', filename = 'base.css') }}">
+<script type = "text/javascript" src = "{{ url_for('static', filename = 'base.js') }}" ></script>
+<!--<script type = "text/javascript" src = "{{ url_for('static', filename = 'Chart.min.js') }}" ></script>-->
+<!--<script type = "text/javascript" src = "{{ url_for('static', filename = 'utils.js') }}" ></script>-->
+
+<link rel="icon" type="image/svg" href="{{ url_for('static', filename = 'icon_tera.svg') }}">
+
+</head>
+
+<body onload="cargado()" onbeforeunload="cargando()">
+
+<div id="cabecera">
+
+  <form method="POST" id="fbuscar" onsubmit="cargando()">
+  <input name="entrada" id="entrada" placeholder= "{{mplaceholder|safe}}" type="text" onkeyup="filtro()" size="32" value="{{entrada}}" autofocus>
+  <div id="borrar" onclick="borrar()"><span data-testid="x-viewer" data-icon="x-viewer" class=""><svg viewBox="0 -3 24 24" width="25" height="23" class=""><path fill="currentColor" d="M19.8 5.8l-1.6-1.6-6.2 6.2-6.2-6.2-1.6 1.6 6.2 6.2-6.2 6.2 1.6 1.6 6.2-6.2 6.2 6.2 1.6-1.6-6.2-6.2 6.2-6.2z"></path></svg></span></div>
+  &nbsp
+  <input type="hidden" id="contexto" name="contexto" value="{{contexto}}">
+  <input type="hidden" id="opcion" name="opcion" value="{{opcion}}">
+  <input type="hidden" id="pagina" name="pagina" value="{{pagina}}">
+  <input type="hidden" id="barra" name="barra" value="{{barra}}">
+  <input type="hidden" id="cambio" name="cambio" value="{{cambio}}">    
+  <input type="button" class="enviar" value="enviar" onclick="enviar2()">
+  </form>
+
+  <div id="titulo">  {{metiqueta|safe}} </div>
+
+</div>
+
+
+<nav id="menu">
+  <ul>
+
+    {{mcontexto|safe}}
+
+    <li onclick="cargando()">  
+      <a href="#" onclick="cambiarContexto('root')"><span class="usuario">&nbsp;{{usuario}}&nbsp;&#9662;</span></a>
+        <ul>
+          <li><a href="#" onclick="cambiarBarra()">
+            <div class="icon_menu">Cambiar menú</div></a></li>
+          <li><a href="{{ url_for('logout') }}">
+            <div class="icon_logout">Cerrar sesión</div></a></li>
+        </ul>
+    </li>
+  </ul>
+</nav>
+
+<div id="cover-spin-back"></div>
+<div id="cover-spin"></div>
+<div id="cover-close" onclick="cargado()">
+  <span data-testid="x-viewer" data-icon="x-viewer" class=""><svg viewBox="0 0 24 24" width="48" height="48" class=""><path fill="currentColor" d="M19.8 5.8l-1.6-1.6-6.2 6.2-6.2-6.2-1.6 1.6 6.2 6.2-6.2 6.2 1.6 1.6 6.2-6.2 6.2 6.2 1.6-1.6-6.2-6.2 6.2-6.2z"></path></svg></span>
+</div>
+
+<div id="mySidenav" class="sidenav">
+  <label>&#9776</label>
+  {{mopcion|safe}}
+  <div class="dot"></div>
+</div>
+
+<div id="contenido">
+  {% block content %}{% endblock %}
+</div>
+
+
+
+
+
+</body>
+
+</html> 

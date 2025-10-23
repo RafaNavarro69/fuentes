@@ -1,0 +1,90 @@
+<html>
+<head>
+  <title>Todo personal</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Chalarangelo/mini.css@v3.0.1/dist/mini-default.min.css">
+</head>
+<body>
+<form method="post" action="/ActualizaDatos" enctype="multipart/form-data">
+    
+  <H1>Proyecto ECO</H1>
+  NIG: 
+  <input type="text" name="nig" value={{recurso.nig}}>
+
+  NIF: 
+  <input type="text" name="nif" value={{recurso.nif}}>
+
+  <br>Número de procedimiento: 
+  <input type="text" name="numproc" value={{recurso.numproc}}>
+
+  Año de procedimiento: 
+  <input type="text" name="anyoproc" value={{recurso.anyoproc}}>
+
+  <br>Número de juzgado: 
+  <input type="text" name="juzgado" value={{recurso.juzgado}}>
+
+  <br>Negociado: 
+  <input type="text" name="negociado" value={{recurso.negociado}}>
+
+  <br>Fecha límite:
+  <input type="date" name="flimite" value={{recurso.flimite}}>
+
+  <fieldset>
+  <legend>Tipo de procedimiento</legend>
+  <input type="radio" name="tipoproc" value="O" checked>Ordinario
+  <input type="radio" name="tipoproc" value="A">Abreviado
+  </fieldset>
+
+
+  <br>
+  <fieldset>
+    <legend>Departamento implicado</legend>
+        Gestión de ingresos<input type="checkbox" name="gin">
+        Sanciones<input type="checkbox" name="san"/>
+        AJM<input type="checkbox" name="ajm"/>
+        TEA<input type="checkbox" name="tea"/>
+        GPR<input type="checkbox" name="gpr"/>
+        Recaudación<input type="checkbox" name="rec"/>
+  </fieldset>
+
+  <br>Fecha de la vista:
+  <input type="date" name="fvista" value={{recurso.fvista}}>
+
+  <br><textarea name="observac"  value={{recurso.observaciones}} cols="50" rows="4">Introduce observaciones</textarea><br>
+
+    <br><br><br>
+    
+    <table style="width:100%" border=0>
+      <thead>
+          <tr>
+          <th>Departamento</th>
+          <th>Observaciones</th>
+          <th>Inicio trámite</th>
+          <th>Fecha límite trámite</th>
+          <th>Fin trámite</th>
+          <th>Documentos</th>
+          </tr>
+      </thead>
+      <tbody>
+      {% for tram in recurso.tramites.tramites %}
+       <tr>
+          <td>{{tram.dpto}}</td>
+          <td>{{tram.observaciones}}</td>
+          <td>{{tram.finitramite}}</td>
+          <td>{{tram.flimtramite}}</td>
+          <td>{{tram.ffintramite}}</td>
+          <td>
+            {% for docum in tram.docs.documentos %}
+            <a href="/MuestraDoc/{{docum.numdoc}}" target="_blank">{{docum.nomdoc}}</a><br>
+            {% endfor %}
+          </td>
+      </tr>  
+        {% endfor %}
+      </tbody>
+  </table>        
+
+  <br><br><br>
+  <input type="submit" value="Actualizar datos">
+</form>
+</body>
+</html> 

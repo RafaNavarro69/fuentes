@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+  <div class="container-fluid">
+	  <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+		<label>&#9776</label> ECO
+	  </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar" >
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/pideDatos">Insertar registro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/EnsenaDatos">Ver lista</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-start" id="demo">
+  <div class="offcanvas-header">
+    <h1 class="offcanvas-title">ECO</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+	<a href="/pideDatos">Insertar registro</a>
+	<br>
+	<a href="/EnsenaDatos">Ver lista</a>
+	<br>
+    <button class="btn btn-secondary" type="button">Botón izquierda</button>
+  </div>
+</div>

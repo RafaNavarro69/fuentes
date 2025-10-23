@@ -1,0 +1,60 @@
+import requests
+from pydantic import BaseModel
+
+class Persona (BaseModel):
+        nom: str
+        dir:str|None = None
+        tfno: str|None = None
+
+
+#Levanto servicios en carpeta EjSencilloDeWS
+
+rpta = requests.get ('http://localhost:5000/Hola/Currito')
+print(rpta.text)
+
+rpta = requests.post ('http://localhost:5000/Hola2', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Jorgito'}) #NO FUNCIONA!!!
+print(rpta.content)
+
+rpta = requests.post ('http://localhost:5000/Hola2', headers={'accept': 'text/html'}, params='nom=Juanito')
+print(rpta.content)
+
+rpta = requests.post ('http://localhost:5000/Hola3', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Pepito'})  # data, files or json
+print(rpta.json())
+print(rpta.json()['rpta'])
+
+rpta = requests.post ('http://localhost:5000/Hola4', headers={'accept': 'text/html', 'Content-type': 'application/json'}, json={'nom':'Isabelita'})
+print(rpta.json())
+
+rpta = requests.post ('http://localhost:5000/Hola5', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Rafa'})
+print(rpta.json())
+rpta = requests.post ('http://localhost:5000/Hola5', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Pepe'})
+print(rpta.json())
+
+
+#Necesito un token para llamar a alta denuncia. Depués lo paso como bearer
+rpta = requests.post(    url = 'http://teraws.ayuntamiento.svq:5000/token', 
+                     headers = {'accept': 'application/json','Content-type': 'application/x-www-form-urlencoded'}, 
+                        data = {'grant_type': 'password','username': 'ranavang','password': 'admin'}
+                        )
+tok=rpta.json()["access_token"]
+print (tok)
+
+denuncia={'boletin': '3044031484', 'otros_datos_boletin': 'tipo:B;anyo:2025;', 'fecha_hora': '2025-07-20 09:02', 'lugar': {'cod_cll': '00337', 'frente_a': 'Plaza de la Legión'}, 'infraccion': {'cod_inf': '20250288', 'hecho_denunciado': 'Circular por carril reservado a determinados vehículos (carril bus y otros)', 'observaciones': 'Sentido Avenida EXPO`92 - Calle Torneo (Coord: 37,3904423 -6,0025774)', 'grua': False}, 
+'vehiculo': {'matricula': '1111HHT'}, 'denunciado': {'notificado': False, 'notificacion': 'Hecho observado a través de medio de captación y reproducción de imágenes que permiten la identificación del vehículo'}, 'agentes': {'num_agente': 'B04', 'num_age_testigo': 'LR007'}}
+
+rpta = requests.post (    url = 'http://teraws.ayuntamiento.svq:5000/altadenuncia', 
+                      headers = {'accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer ' + tok}, 
+                         json = denuncia)
+print ('denuncia, respuesta', denuncia, rpta.json())
+print ('----------')
+print('Para denuncia con boletín ' + denuncia['boletin'] + ' se devuelve el expediente ' + rpta.json()['expediente'])
+
+
+#Otra forma de llamar. Parece que sólo para wsdls
+
+"""
+consulta = Client('http://localhost:5000?wsdl')
+print(consulta)
+respuesta=consulta.service.Hola5('Rafa',None,None)
+
+"""

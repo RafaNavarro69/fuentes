@@ -1,0 +1,24 @@
+from suds.client import Client
+import os
+import time
+
+os.environ["NLS_LANG"] = "American_America.UTF8" 
+
+#url_consulta='http://10.70.26.48:8040/WSHolaYSuma/RafaWS?wsdl'
+
+url_consulta='http://localhost:8080/WSHolaYSuma/RafaWS?wsdl'
+
+
+consulta = Client(url_consulta)
+print(consulta)
+
+respuesta=consulta.service.suma11(5,7,None,None)
+print(respuesta)
+
+respuesta=consulta.service.hello11('Rafa',None,None)
+print(respuesta)
+
+# respuesta=consulta.service.hello11('Rafa',None,None)  NO VA!!
+
+respuesta=consulta.service.hello12('Rafa',None,None)
+print(respuesta)

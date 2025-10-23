@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TERA</title>
+ 
+<link rel="stylesheet" href="static/login.css">
+<link rel="icon" type="image/svg" href="static/icon_tera.svg">
+ 
+<title>TERA Entrada</title>
+</head>
+ 
+<body>
+  <div class="formulario">
+    <form method="POST">
+        <h2>&#9776;&#160;&#160;&#160;&#160;&#160;TERA</h2>
+        <label for="uw">Usuario<br>
+        <input name="usuario" type="text" id="uw" size="20" required="required" value="{{usuario}}" autofocus>
+        </label>
+        <br>
+        <label for="pa"><br>Contraseña<br>
+        <input name="password" type="password" id="pa" size="20" required="required" value="{{password}}">
+        </label>
+        <br>
+        <div class="error">{{mensaje}}</div>
+        <br><br>
+        <input name="pulsar" type="submit" id="pulsar" value="INICIAR SESIÓN">
+    </form>
+  </div>
+</body>
+</html>
