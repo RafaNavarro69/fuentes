@@ -1,0 +1,30 @@
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+import uvicorn
+import requests
+
+
+app = FastAPI()
+templates = Jinja2Templates(directory='templates')
+
+@app.get('/')
+def pide(rep: Request):
+    return templates.TemplateResponse('multaInicial.html', {'request': rep})
+
+@app.post('/accion')
+async def ensenaDatos(rep: Request):
+    form = await rep.form()
+    mulid=form.get('mulid')
+    rpta = requests.post ('http://localhost:6000/GeneraCSV', headers={'accept': 'application/json', 'Content-type': 'application/json'},  json={'mulini':mulid,'mulfin':99999999,'fini':'01/01/1900','ffin':'31/12/2099'})
+    r=rpta.json()
+
+    dev="<h3>"
+    for i in range(0, len(r)):
+        dev=dev + 'BOLETÍN ' + str(i+1) + "-->" + r['MULTA'+str(i+1)]['BOLETIN'] + '<br>'
+
+    return HTMLResponse (dev+"</h3>")
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="localhost", port=5000)

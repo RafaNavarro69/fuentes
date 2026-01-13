@@ -1,0 +1,111 @@
+import requests
+from pydantic import BaseModel
+
+class Persona (BaseModel):
+        nom: str
+        dir:str|None = None
+        tfno: str|None = None
+
+
+#Levanto servicios en carpeta teraws/wsHola   ---- tb en carpeta EjSencilloDeWS
+
+"""
+
+#rpta = requests.get ('http://localhost:6000/Hola/Currito')
+rpta = requests.get ('http://10.70.26.32:7000/Hola/Currito')
+print(rpta.text)
+
+rpta = requests.post ('http://10.70.26.32:7000/Hola2', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Jorgito'}) #NO FUNCIONA!!!
+print(rpta.content)
+
+rpta = requests.post ('http://10.70.26.32:7000/Hola2', headers={'accept': 'text/html'}, params='nom=Juanito')
+print(rpta.content)
+
+
+rpta = requests.post ('http://10.70.26.32:7000/Hola3', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Pepito'})  # data, files or json
+print(rpta.json())
+r=rpta.json()
+print(r['rpta'])
+
+
+rpta = requests.post ('http://10.70.26.32:7000/Hola4', headers={'accept': 'text/html', 'Content-type': 'application/json'}, json={'nom':'Isabelita'})
+print(rpta.json())
+
+rpta = requests.post ('http://10.70.26.32:7000/Hola5', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Rafa'})
+print(rpta.json())
+rpta = requests.post ('http://10.70.26.32:7000/Hola5', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'nom':'Pepe'})
+print(rpta.json())
+
+
+rpta = requests.post ('http://10.70.26.32:7000/Hola6', headers={'accept': 'application/json', 'Content-type': 'application/json'}, json={'dato':'28905503T'})
+print('Hola, ' + rpta.json()['nombre'] + '!')
+
+
+rpta = requests.post ('http://localhost:6000/DeAltaEnIAE', headers={'accept': 'text/html', 'Content-type': 'application/json'},  json={'nif':'28905503T', 'refCat':'11111111111111111111'})
+print(rpta.text)
+
+
+rpta = requests.post ('http://eco.ayuntamiento.svq:7000/DeAltaEnIAE', headers={'accept': 'text/html', 'Content-type': 'application/json'},  json={'nif':'28905503T', 'refCat':'4414402TG3441S0167MO'})
+print(rpta.text)
+
+
+
+rpta = requests.post ('http://10.70.26.48:7000/DeAltaEnIAE', headers={'accept': 'text/html', 'Content-type': 'application/json'},  json={'nif':'28905503T', 'refCat':'4414402TG3441S0167MO'})
+print(rpta.text)
+
+
+
+rpta = requests.post ('http://localhost:6000/Multa1', headers={'accept': 'text/html', 'Content-type': 'application/json'},  json={'mulid':111})
+print(rpta.text)
+
+
+rpta = requests.post ('http://localhost:6000/Multa1', headers={'accept': 'application/json', 'Content-type': 'application/json'},  json={'mulid':10183212})
+print(rpta.text)
+
+print(rpta.json()['NUMBOL'])
+
+r=json.loads(rpta.text)  #Otra forma
+print(r['ESTADO'])
+
+rpta = requests.post ('http://localhost:6000/Multa2', headers={'accept': 'text/html', 'Content-type': 'application/json'},  json={'mulid':111})
+print(rpta.text)
+
+
+rpta = requests.post ('http://localhost:6000/Multa3', headers={'accept': 'application/json', 'Content-type': 'application/json'},  json={'mulid':10183212})
+print(rpta.text)
+r=rpta.json()
+print('mulid ', r['MULID'])
+
+
+"""
+
+
+#rpta = requests.post ('http://localhost:6000/GeneraCSV', headers={'accept': 'text/html'}, params='multa=10198590') Al ppio sólo le pasaba el mulid incial y el proc recibía un int
+
+rpta = requests.post ('http://eco.ayuntamiento.svq:9000/GeneraCSV', headers={'accept': 'application/json', 'Content-type': 'application/json'},  json={'mulini':10190590,'mulfin':10190590,'fini':'01/01/1900','ffin':'31/12/2099'})
+#print(rpta.text)
+r=rpta.json()
+
+print ('Se han devuelto ' + str(len(r)) + ' multas')
+for i in range(0, len(r)):
+        print('BOLETïN ' + str(i+1), r['MULTA'+str(i+1)]['BOLETIN'])
+
+
+
+rpta = requests.post ('http://eco.ayuntamiento.svq:9000/GeneraCSV', headers={'accept': 'application/json', 'Content-type': 'application/json'},  json={'mulini':10190090,'mulfin':99999999,'fini':'01/01/1900','ffin':'31/12/2099'})
+r=rpta.json()
+
+dev="<h3>"
+for i in range(0, len(r)):
+        dev=dev + 'BOLETÍN ' + str(i+1) + "-->" + r['MULTA1']['BOLETIN'] + '<br>'
+
+print (dev+"</h3>")
+
+
+
+
+
+
+
+
+
